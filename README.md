@@ -4,7 +4,7 @@ The Gdz library is a C++ template-based library designed for highly efficient ma
 Features
 Arbitrary Precision Integers:
 
-Gdz supports arbitrary precision by templating the number of blocks (words) used to represent the integer. For example, Gdz<4> represents an integer using 4 blocks (typically 32-bit or 64-bit depending on the platform).
+Gdz supports arbitrary precision by templating the number of blocks (words) used to represent the integer. For example, Gdz<4> represents a POD 2's compliment integer using 4 U32 blocks with no additional data members.
 Comprehensive Constructor Support:
 
 Supports various construction methods, including default, copy, initializer list, and construction from a single value or multiple homogeneous/heterogeneous values.
@@ -132,4 +132,4 @@ Simply include the relevant header files in your project. No additional librarie
 
 
 
-This README provides a partial guide for understanding and using the Gdz library, including installation, features, and example usage. The library's emphasis is on performance, flexibility, simplicity and elegance making it an ultra-lightweight and completely integrated large integer solution.  In almost all use cases and syntaxes it functions identically to builtin types which is something no other comparable library can claim. Code written with it will be concise, clear and efficient.  The suite of intialization, conversion, output functionality gives it a 'super connected' syntax.  Output of these extremely large numbers is simple yet completely configurable with it being able to create strings in any combination of arity, segmentation and ordering.  
+This README provides a partial guide for understanding and using the Gdz library, including installation, features, and example usage. The library's emphasis is on performance, flexibility, simplicity and elegance making it an ultra-lightweight and completely integrated large integer solution.  In almost all use cases and syntaxes it functions identically to builtin types which is something no other comparable library can claim. Code written with it will be concise, clear and efficient.  The suite of intialization, conversion, output functionality gives it a 'super connected' syntax.  Output of these extremely large numbers is simple yet completely configurable with it being able to create strings in any combination of radix, segmentation and ordering.  
