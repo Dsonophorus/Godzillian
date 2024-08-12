@@ -331,7 +331,7 @@ public:
 		return result;
 	}	
 	_CX explicit operator unsigned int() const { return (unsigned int)data[0]; }	// these resolve gay ambiguity
-	_CX explicit operator int() const { return (int)data[0]; }						// these resolve gay ambiguity
+	_CX explicit operator int() const { return (int)data[0]; }			
 
 // comparison operations
 	template<typename T>
@@ -399,7 +399,7 @@ public:
 	}
 	_CX Gdz operator+() const { return (data[Sz - 1] & 0x80000000) != 0 ? -*this : *this; }
 	_CX Gdz& Not(){ for(U32 i=0; i<Sz;++i) data[i] = ~data[i]; return *this; } 
-	_CX Gdz& Rev(const bool& fBits = 0){ U32 i = 0, T=0;
+	_CX Gdz& Rev(const bool& fBits = 0){ U32 i = 0, T=0;	// rev blk ordering. if fBits then bits are also reversed per blk
 	if (!fBits) for (; i < Sz / 2; ++i){ T = data[i]; data[i] = data[Sz - 1 - i]; data[Sz - 1 - i] = T; }
 		else for (; i < Sz / 2; ++i) { T = RevV32(data[i]); data[i] = RevV32(data[Sz - 1 - i]); data[Sz - 1 - i] = T; };
 		return *this;
@@ -668,16 +668,15 @@ using GdzL = Gdz<16>;
 
 // General specialization for Gdz types, only accepts N > 4
 template<int tN>
-struct _CXType<Gdz<tN>, typename std::enable_if<(tN > 8)>::type> {
+struct _CXType<Gdz<tN>, typename std::enable_if<(tN > 2)>::type> { // enable for typ above 64 bits to avoid collision with builtin
 	using T = Gdz<tN>;
-	//static _CX const char* Name() { return "Gdz<" _CXIntStr<NestLevel>::str ">"; }
 	static _CX const char* Name() { static char name[12]; snprintf(name, sizeof(name), "Gdz<%d>", tN); return name; }
 	static _CX T Max() { return T(-1).sign(0); }
 	static _CX T Min() { return T(0).sign(1); }
 };
 
 template<int Size>
-struct _CXNType<Size, typename std::enable_if<(Size < -8 || Size > 8)>::type>
+struct _CXNType<Size, typename std::enable_if<(Size < -8 || Size > 8)>::type> // create integer by size
 	: _CXType<Gdz<Size>> {
 	using T = typename _CXType<Gdz<Size>>::T;
 };
@@ -749,7 +748,7 @@ _CX T& operator Op##= (T& L, const Gdz<TN>& R) { L = L Op static_cast<T>(R); ret
 _OP(&) _OP(|) _OP(^) _OP(+) _OP(-) _OP(*) _OP(/) _OP(%)
 #undef _OP
 
-template<int N> std::ostream& operator<<(std::ostream& os, const Gdz<N>& G) { return os << (STR) G; }
+template<int N> std::ostream& operator<<(std::ostream& os, const Gdz<N>& G) { return os << (STR) G; } // ostream integration
 
 // this version has MSD partial block which is standard convention.  it writes each digit 2x and requires an extra digit buffer
 template<int TN> // Flags: NumOrd:1 BlkOrd:2 Zeros:4 SignPos:8 Plus:16
