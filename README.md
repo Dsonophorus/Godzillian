@@ -23,13 +23,15 @@ Gdz provides an interface akin to STL containers, with support for iteration, el
 Bit Manipulation Utilities:
 
 Advanced bit manipulation functions, including bit counting, finding least/most significant bits, and reversing bits.
-Examples
-1. Initialization and Construction
-#include "Gdz.hpp"
+Examples:
 
+1. Initialization and Construction
+
+#include "Gdz.hpp"
 int main() {
+
     // Default constructor
-    S128 gdz1;
+    S128 gdz1 = "11111000:01010101:00001111"_g2; //binary, octal, decimal, hex native literals of arbitrary size
     
     // Copy constructor
     S1k gdz2(gdz1);
@@ -50,9 +52,10 @@ int main() {
 }
 
 2. Arithmetic and Bitwise Operations
-#include "Gdz.hpp"
 
+#include "Gdz.hpp"
 int main() {
+
     Gdz<2> a{1234};
     Gdz<2> b{5678};
     
@@ -77,11 +80,11 @@ int main() {
 }
 
 3. Comparison Operations
-#include "Gdz.hpp"
 
+#include "Gdz.hpp"
 int main() {
     S128 gdz1{1234};
-    Gdz<4> gdz2{5678};  //equivalent 
+    Gdz<4> gdz2{5678};  //equivalent size
     
     // Comparison operations
     bool eq = gdz1 == gdz2;
@@ -93,10 +96,12 @@ int main() {
     
     return 0;
 }
-4. Floating-Point Conversion
-#include "Gdz.hpp"
 
+4. Floating-Point Conversion
+
+#include "Gdz.hpp"
 int main() {
+
     double f = 1.23456789e10;
     S256 gdz(f);
     
@@ -107,8 +112,8 @@ int main() {
 }
 
 5. Container Interface
-#include "Gdz.hpp"
 
+#include "Gdz.hpp"
 int main() {
     S128 gdz{0x12345678, 0x23456789, 0x34567890, 0x45678901};
     
@@ -127,6 +132,7 @@ int main() {
     
     return 0;
 }
+
 Installation
 Simply include the relevant header files in your project. No additional libraries or dependencies are required. #define DO_CREATE before inclusion into the primary translation unit to instatiate necessary globals.
 
