@@ -139,7 +139,7 @@ int main() {
 }
 
 Installation
-Simply include the relevant header files in your project. No additional libraries or dependencies are required. #define DO_CREATE before inclusion into the primary translation unit to instatiate necessary globals.
+Simply include "Gdz.hpp" in your project. No additional libraries or dependencies are required. #define DO_CREATE before inclusion into the primary translation unit to instatiate necessary globals.
 
 
 
